@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/tripplanner",
+  "sourceRoot": "apps/tripplanner/src",
+  "prefix": "tripplanner-nx",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/tripplanner",
+        "index": "apps/tripplanner/src/index.html",
+        "main": "apps/tripplanner/src/main.ts",
+        "polyfills": "apps/tripplanner/src/polyfills.ts",
+        "tsConfig": "apps/tripplanner/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/tripplanner/src/favicon.ico",
+          "apps/tripplanner/src/assets"
+        ],
+        "styles": ["apps/tripplanner/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/tripplanner/src/environments/environment.ts",
+              "with": "apps/tripplanner/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "tripplanner:build:production"
+        },
+        "development": {
+          "browserTarget": "tripplanner:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "tripplanner:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/tripplanner/src/**/*.ts",
+          "apps/tripplanner/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/tripplanner"],
+      "options": {
+        "jestConfig": "apps/tripplanner/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

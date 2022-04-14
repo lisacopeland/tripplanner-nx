@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "tripplanner": "apps/tripplanner",
+    "tripplanner-e2e": "apps/tripplanner-e2e"
+  }
+}
