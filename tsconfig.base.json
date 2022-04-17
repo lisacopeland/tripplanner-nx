@@ -5,6 +5,9 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "noImplicitAny": false,    
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -14,7 +17,19 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@tripplanner-nx/auth": ["libs/auth/src/index.ts"],
+      "@tripplanner-nx/common": ["libs/common/src/index.ts"],
+      "@tripplanner-nx/people": ["libs/people/src/index.ts"],
+      "@tripplanner-nx/shared": ["libs/shared/src/index.ts"],
+      "@tripplanner-nx/trips": ["libs/trips/src/index.ts"]
+    }
   },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },  
   "exclude": ["node_modules", "tmp"]
 }

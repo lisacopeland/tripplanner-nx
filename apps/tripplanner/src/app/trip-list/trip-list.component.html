@@ -1,0 +1,148 @@
+<div *ngIf="vm$ | async as vm" class="triplist-wrapper">
+  <ng-container *ngIf="vm.ready; else loading">
+    <div class="list-column">
+      <div class="side-menu">
+        <button mat-icon-button>
+          <span class="material-icons gray">edit</span>
+        </button>
+        <button mat-icon-button>
+          <span class="material-icons gray">add</span>
+        </button>
+        <button mat-icon-button>
+          <span class="material-icons gray">group</span>
+        </button>
+        <button mat-icon-button>
+          <span class="material-icons gray">chat</span>
+        </button>
+      </div>
+      <div class="trip-list">
+        <div class="trip-list-header">
+          <div class="trip-list-title">
+            <h2>Upcoming trips</h2>
+            <button mat-flat-button (click)="archiveToggle()"><span
+                class="archive-toggle">{{archiveToggleLabel}}</span></button>
+          </div>
+          <div>
+            <button class="create-button" (click)="createTrip()"><span
+                class="material-icons brown">add_circle_outline</span>Create Trip</button>
+          </div>
+        </div>
+        <ng-container *ngIf="vm.trips as trips; else noTrips">
+          <div class="trip-list">
+            <ng-container *ngFor="let trip of trips">
+              <ng-template *ngTemplateOutlet="tripTemplate; context: {$implicit: trip }"></ng-template>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-template #noTrips>
+          <p>You have no trips, use Create Trips to get started</p>
+        </ng-template>
+      </div>
+    </div>
+    
+    <div class="info-column">
+      <div>
+        <h3 class="list-header">Choose a trip on the left or click the create button to start planning</h3>
+      </div>
+      <div class="background-pic">
+        <img class="img-pic" src="assets/trip_planner_w275.png" />
+      </div>
+
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    Please wait
+  </ng-template>
+  <ng-template #tripTemplate let-trip>
+    <!-- trip is the Trip object -->
+    <mat-card (click)="onGotoDetail(trip.trip)"
+      *ngIf="(trip.trip.admin_status !== TRIP_STATUS_ARCHIVED) || (showArchived)" class="trip-card">
+      <!-- Need to add an archive button -->
+      <div class="card-content">
+        <div class="card-left">
+          <ng-container *ngIf="trip.trip.background_pic_url && trip.trip.background_pic_url !== ''; else defaultPic">
+            <img [src]=trip.trip.background_pic_url height="90" />
+          </ng-container>
+          <ng-template #defaultPic>
+            <img [src]=DEFAULT_BACKGROUND height="90" />
+          </ng-template>
+
+          <div class="card-header">
+            <p>
+              {{trip.trip.admin_title}}
+            </p>
+            <p class="trip-date">{{trip.trip.start_date | timetill }} on {{trip.trip.start_date | date: "longDate"}}</p>
+            <p>
+              {{ trip.trip.admin_notes }}
+            </p>
+          </div>
+          <!-- Now the list of people -->
+        </div>
+        <div class="person-list">
+          <div *ngIf="trip.people.length; else noPeople">
+          <p>Who's going:</p>
+          <div class="avatar-row">
+            <ng-container *ngFor="let person of trip.people">
+              <app-avatar [person]=person></app-avatar>
+            </ng-container>
+          </div>
+          </div>
+          <ng-template #noPeople>
+            No one is going on this trip yet!
+          </ng-template>
+        </div>
+      </div>
+    </mat-card>
+
+  </ng-template>
+
+
+  <!-- <div class="wrapper">
+  <div class="list-header">
+    <h1>Trip List</h1>
+    <button mat-button (click)="archiveToggle()"><span class="archive-toggle">Show archived</span></button>
+  </div> -->
+
+  <!--   <div class="trip-list-wrapper">
+    <ng-container *ngIf="trips$ | async as trips; else noTrips">
+      <div class="trip-list">
+        <ng-container *ngFor="let trip of trips">
+          <mat-card *ngIf="(trip.admin_status !== TRIP_STATUS_ARCHIVED) || (showArchived)" class="trip-card">
+            <div class="card-header">
+              <h2>
+                {{trip.admin_title}}
+              </h2>
+              <button mat-icon-button [matMenuTriggerFor]="menu" (menuOpened)="menuOpened(trip)">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+            <ng-container *ngIf="trip.background_pic_url && trip.background_pic_url !== ''; else defaultPic">
+              <img mat-card-image [src]=trip.background_pic_url />
+            </ng-container>
+            <ng-template #defaultPic>
+              <img mat-card-image [src]=DEFAULT_BACKGROUND />
+            </ng-template>
+            <mat-card-content>
+              <p>
+                {{ trip.admin_notes }}
+              </p>
+              <p>{{trip.start_date | timetill }}</p>
+              <p>On {{trip.start_date | date: "longDate"}}</p>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-template #noTrips>
+      <p>You have no trips, use Create Trips to get started</p>
+    </ng-template>
+    <mat-card class="create-card">
+      <h2>Create new</h2>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Trip name" (keydown.enter)="createTrip()" [(ngModel)]="newTripTitle" />
+      </mat-form-field>
+      <button mat-button color="primary" type="button" [disabled]="newTripTitle === ''"
+        (click)="createTrip()">Continue</button>
+    </mat-card>
+  </div> -->

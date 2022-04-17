@@ -1,0 +1,11 @@
+<div class="frame">
+    <ng-container *ngIf="person !== null">
+        <ng-container *ngIf="person.background_pic_url && person.background_pic_url !== ''; else defaultPic">
+            <img [src]=person.background_pic_url height="50" class="avatar"/>
+        </ng-container>
+        <ng-template #defaultPic>
+            <img [src]=DEFAULT_AVATAR height="50" class="avatar"/>
+        </ng-template>
+        <p class="person-name">{{person.name}}</p>
+    </ng-container>
+</div>

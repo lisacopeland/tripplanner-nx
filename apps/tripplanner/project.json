@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/tripplanner",
         "index": "apps/tripplanner/src/index.html",
@@ -18,7 +20,10 @@
           "apps/tripplanner/src/favicon.ico",
           "apps/tripplanner/src/assets"
         ],
-        "styles": ["apps/tripplanner/src/styles.scss"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/tripplanner/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -83,7 +88,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/tripplanner"],
+      "outputs": [
+        "coverage/apps/tripplanner"
+      ],
       "options": {
         "jestConfig": "apps/tripplanner/jest.config.js",
         "passWithNoTests": true

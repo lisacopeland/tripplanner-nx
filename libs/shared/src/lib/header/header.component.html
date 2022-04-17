@@ -1,0 +1,20 @@
+<div class="header-class">
+    <div class="left-side">
+        <h2 class="app-title">Trip Planner</h2>
+    </div>
+
+    <div class="right-side">
+        <button mat-icon-button>
+            <mat-icon class="material-icons brown">chat</mat-icon>
+        </button>
+        <button mat-icon-button>
+            <mat-icon class="material-icons brown">notifications</mat-icon>
+        </button>
+        <img [src]=DEFAULT_AVATAR alt="Avatar" class="avatar">
+    </div>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>Log In</button>
+    <button mat-menu-item>About</button>
+</mat-menu>

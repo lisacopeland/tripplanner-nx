@@ -1,0 +1,42 @@
+.header-class {
+  display: flex;
+  flex-direction: row;
+  height: 10vh;
+}
+
+.app-title {
+  margin-left: 20px;
+}
+
+.left-side {
+  flex: 1 1 75%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  padding: 10px 0px 10px 0px;
+}
+
+.right-side {
+  background-color: #ffd098;
+  flex: 1 1 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px 0px 10px 0px;
+}
+
+.icon-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 20px;
+}

@@ -1,7 +1,12 @@
 {
   "version": 2,
   "projects": {
+    "auth": "libs/auth",
+    "common": "libs/common",
+    "people": "libs/people",
+    "shared": "libs/shared",
     "tripplanner": "apps/tripplanner",
-    "tripplanner-e2e": "apps/tripplanner-e2e"
+    "tripplanner-e2e": "apps/tripplanner-e2e",
+    "trips": "libs/trips"
   }
 }

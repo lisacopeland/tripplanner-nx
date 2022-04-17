@@ -1,0 +1,15 @@
+<form class="form-layout" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password"  formControlName="email">
+    </mat-form-field>
+
+    <div>
+        <button mat-button color="primary" [disabled]="!form.valid" type="submit">Login</button>
+        <a routerLink="/signup">No account? Click here to signup</a>
+    </div>
+</form>
