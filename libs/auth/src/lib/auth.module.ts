@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { ConfirmSignUpComponent } from './confirm-signup/confirm-signup.component';
 import { MaterialModule } from '@tripplanner-nx/common';
 import { SharedModule } from '@tripplanner-nx/shared';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,12 +22,14 @@ import { AuthEffects } from './+state/auth.effects';
   ],
   declarations: [
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    ConfirmSignUpComponent
   ],
   providers: [],
   exports: [
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    ConfirmSignUpComponent
   ]  
 })
 export class AuthModule {}

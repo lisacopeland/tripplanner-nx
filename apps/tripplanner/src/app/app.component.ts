@@ -29,14 +29,14 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         })
     );
-
+    // this.router.navigate(['/signin']);
     this.store.select(selectUserLoggedIn).subscribe(loggedIn => {
       if (loggedIn) {
-        this.router.navigate(['']);
-      } else {
+        this.router.navigate(['/triplist']);
+      }/*  else {
         this.router.navigate(['/signin']);
-      }
-    })
+      } */
+    });
     this.store.dispatch(loadTripsAction({ search: { account_id: 'lisa' } }));
     this.store.dispatch(loadPeopleAction({ search: { account_id: 'lisa' } }));
   }

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
     constructor(@Inject(COGNITO_USER_POOL_ID) public cognitoUserPoolId: string,
-        @Inject(COGNITO_APP_CLIENT_ID) public cognitoAppClientId: string, ) { }
+        @Inject(COGNITO_APP_CLIENT_ID) public cognitoAppClientId: string,) { }
 
     signIn(email: string, password: string) {
         const authenticationDetails = new AuthenticationDetails({
@@ -27,6 +27,7 @@ export class AuthService {
         return new Observable<{ type: string, result: any }>(obs => {
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess: (result: any) => {
+                    // TODO: Get the JWT for this user to pass with http calls
                     obs.next({ type: 'success', result: result });
                     obs.complete();
                 },
@@ -46,17 +47,67 @@ export class AuthService {
         };
         const userPool = new CognitoUserPool(poolData);
         return new Observable<{ type: string, result: any }>(obs => {
-        userPool.signUp(email, password, [], [], (
-            err,
-            result
-        ) => {
-            if (err) {
-                obs.error(err);
-            }
-            obs.next({ type: 'success', result: result});
-        });      
-    });  
+            userPool.signUp(email, password, [], [], (
+                err,
+                result
+            ) => {
+                if (err) {
+                    obs.error(err);
+                }
+                obs.next({ type: 'success', result: result });
+            });
+        });
     }
+
+    confirmSignUp(email: string, confirmationCode: string) {
+        const poolData = {
+            UserPoolId: this.cognitoUserPoolId, // Your user pool id here
+            ClientId: this.cognitoAppClientId // Your client id here
+        };
+
+        const userPool = new CognitoUserPool(poolData);
+        const userData = {
+            Username: email,
+            Pool: userPool
+        }
+        const cognitoUser = new CognitoUser(userData);
+        return new Observable<{ type: string, result: any }>(obs => {
+            cognitoUser.confirmRegistration(confirmationCode, true, (
+                err,
+                result
+            ) => {
+                if (err) {
+                    obs.error(err);
+                }
+                obs.next({ type: 'success', result: result });
+            });
+        });
+    }    
+
+    resendConfirmationCode(email: string) {
+        const poolData = {
+            UserPoolId: this.cognitoUserPoolId, // Your user pool id here
+            ClientId: this.cognitoAppClientId // Your client id here
+        };
+
+        const userPool = new CognitoUserPool(poolData);
+        const userData = {
+            Username: email,
+            Pool: userPool
+        }
+        const cognitoUser = new CognitoUser(userData);
+        return new Observable<{ type: string, result: any }>(obs => {
+            cognitoUser.resendConfirmationCode((
+                err,
+                result
+            ) => {
+                if (err) {
+                    obs.error(err);
+                }
+                obs.next({ type: 'success', result: result });
+            });
+        });
+    }   
 
     signOut() {
         const poolData = {
@@ -65,11 +116,11 @@ export class AuthService {
         };
         const userPool = new CognitoUserPool(poolData);
         const cognitoUser = userPool.getCurrentUser();
-        return new Observable<{ type: string, result: any }>(obs => {        
-        cognitoUser.signOut(() => {
-            obs.next({ type: 'success', result: ''});
+        return new Observable<{ type: string, result: any }>(obs => {
+            cognitoUser.signOut(() => {
+                obs.next({ type: 'success', result: '' });
+            });
         });
-    });
     }
 
     isLoggedIn(): boolean {

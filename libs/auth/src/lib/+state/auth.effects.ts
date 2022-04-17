@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { AuthService } from "@tripplanner-nx/auth";
+import { AuthService } from "../auth.service";
 import { mergeMap, map } from "rxjs";
-import { loginAction, logOutUserAction, setUserAction, signupUserAction, userLoggedOutAction, userSignedupAction } from "./auth.actions";
+import { confirmSignupUserAction, loginAction, logOutUserAction, setUserAction, signedupConfirmedAction, signupUserAction, userLoggedOutAction, userSignedupAction } from "./auth.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -41,10 +41,25 @@ export class AuthEffects {
         )
     );
 
+    confirmSignUp$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(confirmSignupUserAction),
+            mergeMap((action) => {
+                return this.service.confirmSignUp(action.payload.email, action.payload.confirmationCode).pipe(
+                    map((response) => {
+                        console.log('response from query : ', response);
+                        return signedupConfirmedAction({ payload: { email: action.payload.email } });
+                    })
+                );
+            }, this.concurrentRequests)
+        )
+    );
+
+
     signOut$ = createEffect(() =>
         this.actions$.pipe(
             ofType(logOutUserAction),
-            mergeMap((action) => {
+            mergeMap(() => {
                 return this.service.signOut().pipe(
                     map((response) => {
                         console.log('response from query : ', response);

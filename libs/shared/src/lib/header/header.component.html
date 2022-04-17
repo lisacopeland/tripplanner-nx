@@ -10,11 +10,11 @@
         <button mat-icon-button>
             <mat-icon class="material-icons brown">notifications</mat-icon>
         </button>
-        <img [src]=DEFAULT_AVATAR alt="Avatar" class="avatar">
+        <img [matMenuTriggerFor]="menu" [src]=DEFAULT_AVATAR alt="Avatar" class="avatar">
     </div>
 </div>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item>Log In</button>
-    <button mat-menu-item>About</button>
+    <button mat-menu-item (click)="onSignout()">Sign out</button>
+    <button mat-menu-item>Go to profile</button>
 </mat-menu>
