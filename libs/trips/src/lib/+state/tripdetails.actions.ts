@@ -19,7 +19,7 @@ export const createTripDetailAction = createAction(
 );
 export const tripDetailCreatedAction = createAction(
     'TripDetails: Created',
-    props<{ payload: { TripDetail: TripDetail } }>()
+    props<{ payload: { tripDetail: TripDetail } }>()
 );
 export const updateTripDetailAction = createAction(
     'TripDetails: Update',

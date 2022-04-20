@@ -4,15 +4,17 @@ import {
     createSelector,
     on,
 } from '@ngrx/store';
-import { loginAction, logOutUserAction, setUserAction, signupUserAction, userSignedupAction } from './auth.actions';
+import { loginAction, logOutUserAction, setAuthErrorAction, setUserAction, signupUserAction, userSignedupAction } from './auth.actions';
 
 export interface AuthState {
-    email: any;
+    email: string;
+    authError: string;
     userLoggedIn: boolean;
 }
 
 const initialState: AuthState = {
     email: null,
+    authError: null,
     userLoggedIn: false
 };
 
@@ -26,6 +28,10 @@ export const authReducer = createReducer(
     }),
     on(setUserAction, (state, action) => {
         const newState = { ...state, email: action.payload.email, userLoggedIn: true };
+        return newState;
+    }),
+    on(setAuthErrorAction, (state, action) => {
+        const newState = { ...state, authError: action.payload.error };
         return newState;
     }),
     on(signupUserAction, (state, action) => {
@@ -50,4 +56,7 @@ export const selectAll = createSelector(
 );
 
 export const selectUserLoggedIn = createSelector(selectAll, (state) => state.userLoggedIn
+);
+
+export const selectAuthError = createSelector(selectAll, (state) => state.authError
 );

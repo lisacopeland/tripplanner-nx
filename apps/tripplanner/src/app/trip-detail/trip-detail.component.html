@@ -1,47 +1,51 @@
-<mat-sidenav-container class="example-container" [hasBackdrop]=false>
-
-  <mat-sidenav #drawer mode="push" (opened)="onMenuToggle(true)" (closed)="onMenuToggle(false)">
-    <div class="side-menu">
-      <button mat-icon-button>
-        <span class="material-icons gray">edit</span>
-      </button>
-      <button mat-icon-button>
-        <span class="material-icons gray">add</span>
-      </button>
-      <button mat-icon-button>
-        <span class="material-icons gray">group</span>
-      </button>
-      <button mat-icon-button>
-        <span class="material-icons gray">chat</span>
-      </button>
-    </div>
-
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <button mat-icon-button (click)="drawer.toggle()">
-      <span *ngIf="menuOpened" class="material-icons gray">close</span>
-      <span *ngIf="!menuOpened" class="material-icons gray">menu_open</span>
-    </button>
-    <div class="page-layout" *ngIf="(trip$ | async) as trip">
-      <div class="list-column">
-
+<div class="page-wrapper" *ngIf="(trip$ | async) as trip">
+  <div class="list-column">
+      <div class="side-menu">
+        <button mat-icon-button (click)="onEditTrip(trip)">
+          <span class="material-icons gray">edit</span>
+        </button>
+        <button mat-icon-button (click)="onCreateItem(trip)">
+          <span class="material-icons gray">add</span>
+        </button>
+        <button mat-icon-button>
+          <span class="material-icons gray">group</span>
+        </button>
+        <button mat-icon-button>
+          <span class="material-icons gray">chat</span>
+        </button>
       </div>
-      <div class="info-column">
-        <h2>
-          {{trip.admin_title}}
-        </h2>
-        <ng-container *ngIf="trip.background_pic_url && trip.background_pic_url !== ''; else defaultPic">
-          <img [src]=trip.background_pic_url />
-        </ng-container>
-        <ng-template #defaultPic>
-          <img [src]=DEFAULT_BACKGROUND />
-        </ng-template>
+      <div class="itinerary-list">
+        <div class="itinerary-list-header">
+            <h2>Itinerary</h2>
+          <div>
+            <button class="create-button" (click)="onCreateItem(trip)"><span
+                class="material-icons brown">add_circle_outline</span>Create Item</button>
+          </div>
+        </div>
+        <div *ngIf="tripDetails$ | async as tripDetails">
+          <div *ngFor="let tripDetail of tripDetails">
+            <mat-card class="detail-card">
+              {{tripDetail.admin_title}}
+            </mat-card>
+          </div>
 
-        <p>
-          {{ trip.admin_notes }}
-        </p>
-        <p>From {{trip.start_date | date: "short"}} to {{trip.end_date | date: "short"}}</p>
+        </div>
       </div>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+  <div class="info-column">
+    <h2>
+      {{trip.admin_title}}
+    </h2>
+    <ng-container *ngIf="trip.background_pic_url && trip.background_pic_url !== ''; else defaultPic">
+      <img [src]=trip.background_pic_url />
+    </ng-container>
+    <ng-template #defaultPic>
+      <img [src]=DEFAULT_BACKGROUND />
+    </ng-template>
+
+    <p>
+      {{ trip.admin_notes }}
+    </p>
+    <p>From {{trip.start_date | date: "short"}} to {{trip.end_date | date: "short"}}</p>
+  </div>
+</div>

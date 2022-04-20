@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { deepCopy } from '@tripplanner-nx/common';
 import * as moment from 'moment';
 

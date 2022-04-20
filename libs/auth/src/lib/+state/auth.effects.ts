@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AuthService } from "../auth.service";
 import { mergeMap, map } from "rxjs";
-import { confirmSignupUserAction, loginAction, logOutUserAction, setUserAction, signedupConfirmedAction, signupUserAction, userLoggedOutAction, userSignedupAction } from "./auth.actions";
+import { confirmSignupUserAction, loginAction, logOutUserAction, setAuthErrorAction, setUserAction, signedupConfirmedAction, signupUserAction, userLoggedOutAction, userSignedupAction } from "./auth.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -20,7 +20,13 @@ export class AuthEffects {
                 return this.service.signIn(action.payload.email, action.payload.password).pipe(
                     map((response) => {
                         console.log('response from query : ', response);
-                        return setUserAction({ payload: { email: action.payload.email }});
+                        if (response.type === 'success') {
+                            const jwt = response.result.idToken.jwtToken;
+                            localStorage.setItem('jwt', jwt);
+                            return setUserAction({ payload: { email: action.payload.email } });
+                        } else {
+                            return setAuthErrorAction({ payload: { error: response.result.message } })
+                        }
                     })
                 );
             }, this.concurrentRequests)
@@ -34,7 +40,12 @@ export class AuthEffects {
                 return this.service.signUp(action.payload.email, action.payload.password).pipe(
                     map((response) => {
                         console.log('response from query : ', response);
-                        return userSignedupAction({ payload: { email: action.payload.email } });
+                        if (response.type === 'success') {
+                            return userSignedupAction({ payload: { email: action.payload.email } });
+                        } else {
+                            return setAuthErrorAction({ payload: { error: response.result.message } })
+                        }
+
                     })
                 );
             }, this.concurrentRequests)
@@ -48,7 +59,11 @@ export class AuthEffects {
                 return this.service.confirmSignUp(action.payload.email, action.payload.confirmationCode).pipe(
                     map((response) => {
                         console.log('response from query : ', response);
-                        return signedupConfirmedAction({ payload: { email: action.payload.email } });
+                        if (response.type === 'success') {
+                            return signedupConfirmedAction({ payload: { email: action.payload.email } });
+                        } else {
+                            return setAuthErrorAction({ payload: { error: response.result.message } })
+                        }
                     })
                 );
             }, this.concurrentRequests)
@@ -63,11 +78,12 @@ export class AuthEffects {
                 return this.service.signOut().pipe(
                     map((response) => {
                         console.log('response from query : ', response);
-                        return userLoggedOutAction({ payload: { } });
+                        localStorage.removeItem('jwt');
+                        return userLoggedOutAction({ payload: {} });
                     })
                 );
             }, this.concurrentRequests)
         )
     );
-              
+
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loginAction } from '../+state/auth.actions';
+import { selectAuthError } from '../+state/auth.reducers';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -13,9 +14,16 @@ import { loginAction } from '../+state/auth.actions';
 export class SignInComponent implements OnInit {
   
   form: FormGroup;
+  errorMessage: string;
   constructor(public fb: FormBuilder, private store: Store, private router: Router) { }
 
   ngOnInit(): void {
+    this.store.select(selectAuthError).subscribe(error => {
+      if (error) {
+        this.errorMessage = error;
+      }
+    });
+
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],      

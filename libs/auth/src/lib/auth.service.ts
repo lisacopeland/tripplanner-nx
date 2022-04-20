@@ -31,7 +31,11 @@ export class AuthService {
                     obs.next({ type: 'success', result: result });
                     obs.complete();
                 },
-                onFailure: (error: any) => obs.error(error),
+                onFailure: (error: any) => {
+                    console.log('got an error', error);
+                    obs.next({ type: 'error', result: error })
+                    obs.complete();
+                },
                 newPasswordRequired: (userAttributes, requiredAttributes) => {
                     obs.next({ type: 'newPasswordRequired', result: [userAttributes, requiredAttributes] });
                     obs.complete();
@@ -52,9 +56,11 @@ export class AuthService {
                 result
             ) => {
                 if (err) {
-                    obs.error(err);
+                    obs.next({ type: 'error', result: err });
+                    obs.complete();
                 }
                 obs.next({ type: 'success', result: result });
+                obs.complete();
             });
         });
     }
@@ -77,12 +83,14 @@ export class AuthService {
                 result
             ) => {
                 if (err) {
-                    obs.error(err);
+                    obs.next({ type: 'error', result: err });
+                    obs.complete();
                 }
                 obs.next({ type: 'success', result: result });
+                obs.complete();                
             });
         });
-    }    
+    }
 
     resendConfirmationCode(email: string) {
         const poolData = {
@@ -102,12 +110,13 @@ export class AuthService {
                 result
             ) => {
                 if (err) {
-                    obs.error(err);
+                    obs.next({ type: 'error', result: err });
+                    obs.complete();
                 }
                 obs.next({ type: 'success', result: result });
             });
         });
-    }   
+    }
 
     signOut() {
         const poolData = {
@@ -119,6 +128,7 @@ export class AuthService {
         return new Observable<{ type: string, result: any }>(obs => {
             cognitoUser.signOut(() => {
                 obs.next({ type: 'success', result: '' });
+                obs.complete();
             });
         });
     }

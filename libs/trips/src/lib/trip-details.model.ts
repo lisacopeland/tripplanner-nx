@@ -1,9 +1,22 @@
-import { deepCopy } from "../../../common/src/lib/utils";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { deepCopy } from '@tripplanner-nx/common';
+
+export enum TripDetailType {
+    Transportation = "TRANSPORTATION",
+    Accomodation = "ACCOMODATION",
+    Dining = "DINING",
+    Activity = "ACTIVITY"
+}
+
+export enum TripCostType {
+    individual = "INDIVIDUAL",   // The cost is per person
+    total = "TOTAL"              // The cost is for the entire itinerary item 
+}
 
 export class TripDetail {
     id: string;
     tripId: string;
-    elementType: string; // Transportation, Accomodation, Activity
+    elementType: TripDetailType; // Transportation, Accomodation, Activity
     updated_at: string;
     created_at: string;
     account_id: string;
@@ -16,7 +29,7 @@ export class TripDetail {
     location_end: string;
     participants: string[]; // Just going to keep emails
     cost: number;
-    costType: string; // per individual or total?
+    costType: TripCostType; // per individual or total?
 
     constructor(defaultValues: Partial<TripDetail>) {
         Object.keys(defaultValues).forEach((key) => {

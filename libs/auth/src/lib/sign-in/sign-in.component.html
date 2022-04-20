@@ -1,17 +1,18 @@
 <mat-card>
     <h3>Enter your email and password to sign in</h3>
-<form class="form-layout" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password"  formControlName="password">
-    </mat-form-field>
+    <form class="form-layout" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
 
-    <div class="button-row">
-        <button mat-raised-button color="primary" [disabled]="!form.valid" type="submit">Sign in</button>
-    </div>
-</form>
+        <div class="button-row">
+            <button mat-raised-button color="primary" [disabled]="!form.valid" type="submit">Sign in</button>
+        </div>
+    </form>
+    <div *ngIf="errorMessage">{{errorMessage}}</div>
 </mat-card>

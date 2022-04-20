@@ -44,6 +44,14 @@
   width: 100%;
 }
 
+.trip-list-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  margin: 0px 40px 20px 40px;
+}
+
 .trip-list-title {
   display: flex;
   flex-direction: row;
@@ -84,13 +92,7 @@
   flex-direction: row;
 }
 
-.trip-list-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
-  margin: 0px 40px 20px 40px;
-}
+
 
 .card-left {
   display: flex;

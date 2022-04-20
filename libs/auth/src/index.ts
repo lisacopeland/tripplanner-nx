@@ -5,3 +5,5 @@ export * from './lib/+state/auth.reducers';
 
 export * from './lib/auth.guard';
 export * from './lib/auth.service';
+export * from './lib/jwt.interceptor';
+

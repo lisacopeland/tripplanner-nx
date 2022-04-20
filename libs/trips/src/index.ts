@@ -11,3 +11,4 @@ export * from './lib/trips.service';
 export * from './lib/trip-details.service';
 
 export * from './lib/trip-edit/trip-edit.component';
+export * from './lib/trip-detail-edit/trip-detail-edit.component';

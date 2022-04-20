@@ -3,6 +3,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -25,12 +27,14 @@ import { NgModule } from '@angular/core';
         MatIconModule,
         MatCardModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatFormFieldModule,
         MatSliderModule,
         MatProgressBarModule,
         MatAutocompleteModule,
         MatInputModule,
         MatGridListModule,
+        MatSelectModule,
         MatSidenavModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,
@@ -44,12 +48,14 @@ import { NgModule } from '@angular/core';
         MatIconModule,
         MatCardModule,
         MatDatepickerModule,
+        MatNativeDateModule,
         MatFormFieldModule,
         MatSliderModule,
         MatProgressBarModule,
         MatAutocompleteModule,
         MatInputModule,
         MatGridListModule,
+        MatSelectModule,
         MatSidenavModule,
         MatSnackBarModule,
         MatProgressSpinnerModule,

@@ -1,39 +1,77 @@
-/* .example-container {
-  width: 98%;
-} */
-
-mat-drawer-content {
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.content-wrapper {
-  flex: 1;  
-  height: 100%;
-}
 
 .material-icons.gray { color: #999999; }
+
+.page-wrapper {
+  display: flex;
+  flex: 1 1 100%;
+  height: 90vh;
+  flex-direction: row;
+}
 
 .side-menu {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  width: 40px;
 }
 
-.page-layout {
+.itinerary-list {
   display: flex;
-  max-width: 100%;
+  flex-direction: column;
+  width: 100%;
+}
+
+.itinerary-list-header {
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  margin: 0px 40px 20px 40px;
 }
 
 .list-column {
-  flex: 1 1 65%;
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 75%;
+  background-color: white;
+  height: 100%;
 }
 
 .info-column {
-  flex: 1 1 32%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffd098;
+  flex: 1 1 25%;
+  height: 100%;
+}
+
+.detail-card {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  background-color: #868a72;
+  color: white;
+  margin: 0px 40px 40px 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.create-button {
+  height: 40px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffefdd;
+  color: #9a703e;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  p {
+    margin: none;
+  }
 }
 
 .picture-frame {

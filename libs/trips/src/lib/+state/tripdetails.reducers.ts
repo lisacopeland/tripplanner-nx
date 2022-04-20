@@ -14,8 +14,6 @@ import {
     setCurrentTripDetailAction,
 } from './tripdetails.actions';
 
-
-
 export interface TripDetailsState {
     tripDetails: TripDetail[] | null;
     current: string;
@@ -33,16 +31,16 @@ export const TRIPDETAILS_FEATURE_KEY = 'tripdetails';
 export const tripDetailsReducer = createReducer(
     initialState,
     on(loadTripDetailsAction, (state, action) => {
-        const newState = { ...state, TripDetails: [], currentTripDetail: null, current: ''};
+        const newState = { ...state, tripDetails: [], currentTripDetail: null, current: ''};
         return newState;
     }),
     on(setTripDetailsAction, (state, action) => {
-        const newState = { ...state, TripDetails: action.payload };
+        const newState = { ...state, tripDetails: action.payload };
         return newState;
     }),
     on(tripDetailCreatedAction, (state, action) => {
         const tripDetails = [...state.tripDetails];
-        tripDetails.push(action.payload.TripDetail);
+        tripDetails.push(action.payload.tripDetail);
         const newState = { ...state, tripDetails: tripDetails };
         return newState;
     }),
@@ -86,8 +84,12 @@ const selectAll = createSelector(
     (state: TripDetailsState) => state
 );
 
-export const selectAllTripDetails = createSelector(selectAll, (state) =>
-    mapToTripDetails(state.tripDetails)
+export const selectAllTripDetails = createSelector(selectAll, (state) => {
+    console.log('hi from selectalltripdetails');
+    console.log(state.tripDetails);
+    return mapToTripDetails(state.tripDetails);
+}
+    
 );
 
 export const selectCurrentTripDetail = createSelector(selectAll, (state) =>

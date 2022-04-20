@@ -2,9 +2,8 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { mergeMap, map } from "rxjs";
 
-import { TripDetailsService, createTripDetailAction, deleteTripDetailAction, loadTripDetailsAction, 
-         setTripDetailsAction, tripDetailCreatedAction, tripDetailDeletedAction, 
-         tripDetailUpdatedAction, updateTripDetailAction } from "@tripplanner-nx/trips";
+import { TripDetailsService } from '../trip-details.service';
+import { createTripDetailAction, deleteTripDetailAction, loadTripDetailsAction, setTripDetailsAction, tripDetailCreatedAction, tripDetailDeletedAction, tripDetailUpdatedAction, updateTripDetailAction } from './tripdetails.actions';
 
 @Injectable()
 export class TripDetailsEffects {
@@ -36,7 +35,7 @@ export class TripDetailsEffects {
                 return this.service.create(action.payload.account_id, action.payload.tripId, action.payload).pipe(
                     map((response) => {
                         console.log('response from query : ', response);
-                        return tripDetailCreatedAction({ payload: { TripDetail: response }});
+                        return tripDetailCreatedAction({ payload: { tripDetail: response }});
                     })
                 );
             }, this.concurrentRequests)

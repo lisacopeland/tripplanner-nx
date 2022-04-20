@@ -10,6 +10,7 @@ import { tripDetailsReducer } from './+state/tripdetails.reducers';
 import { TripsEffects } from './+state/trips.effects';
 import { tripsReducer } from './+state/trips.reducers';
 import { TripEditComponent } from './trip-edit/trip-edit.component';
+import { TripDetailEditComponent } from './trip-detail-edit/trip-detail-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -26,9 +27,11 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     TripEditComponent,
+    TripDetailEditComponent
   ],
   exports: [
     TripEditComponent,
+    TripDetailEditComponent
   ],
   providers: []  
 })

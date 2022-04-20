@@ -59,7 +59,7 @@ export class TripListComponent {
       data: this.selectedTrip
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
       this.newTripTitle = '';
     });
